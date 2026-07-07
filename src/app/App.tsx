@@ -1,123 +1,142 @@
 import { useEffect, useState, type ReactNode } from "react";
 import {
-  ArrowUpRight,
   Award,
   BriefcaseBusiness,
   ChevronDown,
-  Cloud,
   Code2,
   Database,
+  Download,
+  Figma,
   Github,
-  Linkedin,
+  GraduationCap,
   Mail,
   Menu,
   MessageCircle,
   Phone,
-  Server,
   Sparkles,
   X,
 } from "lucide-react";
 import { motion, useScroll, useSpring } from "motion/react";
 
+const CURRICULUM_URL = "/Curriculo_Thiago_Panini_Cassiano_visual_novo.pdf";
+
 const NAV_ITEMS = ["Sobre", "Projetos", "Habilidades", "Trajetória", "Contato"];
 
 const PROJECTS = [
   {
-    name: "DataFlow Pipeline",
+    name: "Portfólio Dev",
     description:
-      "Pipeline de ingestão e transformação de dados em tempo real, processando mais de 2 milhões de eventos diários com Apache Kafka e PySpark.",
-    tags: ["Python", "Kafka", "PySpark", "AWS"],
-    year: "2024",
-    status: "Produção",
+      "Site pessoal responsivo para apresentar trajetória, tecnologias, contatos e currículo, com React, Tailwind CSS, Motion e deploy via Vercel.",
+    tags: ["React", "Tailwind", "Vite", "Vercel"],
+    year: "2026",
+    status: "Online",
     accent: "from-emerald-400 to-cyan-300",
   },
   {
-    name: "Panini Analytics",
+    name: "Soluções Digitais",
     description:
-      "Plataforma de BI self-service com dashboards interativos, conectores nativos para BigQuery e Redshift, e exportação automatizada de relatórios.",
-    tags: ["React", "TypeScript", "FastAPI", "BigQuery"],
-    year: "2023",
-    status: "Produção",
+      "Estudos e práticas em desenvolvimento de sistemas, criação de interfaces e organização de fluxos digitais para problemas do dia a dia.",
+    tags: ["JavaScript", "Node.js", "Supabase", "MySQL"],
+    year: "2025",
+    status: "Em evolução",
     accent: "from-sky-400 to-violet-300",
   },
   {
-    name: "MLflow Registry Hub",
+    name: "Design & Prototipação",
     description:
-      "Sistema centralizado de versionamento de modelos de machine learning com integração ao MLflow, rastreamento de experimentos e deploy automatizado.",
-    tags: ["Python", "MLflow", "Docker", "GCP"],
-    year: "2023",
-    status: "Open Source",
+      "Criação de telas, identidade visual e materiais digitais com foco em clareza, usabilidade e apresentação profissional.",
+    tags: ["Figma", "Canva", "Lovable", "UI"],
+    year: "2025",
+    status: "Estudos",
     accent: "from-amber-300 to-orange-400",
   },
   {
-    name: "Spark Toolkit",
+    name: "Base Técnica",
     description:
-      "Biblioteca utilitária para engenharia de dados com PySpark, abstrações para leitura de múltiplas fontes, transformações comuns e escrita particionada.",
-    tags: ["PySpark", "Python", "Delta Lake"],
-    year: "2022",
-    status: "Open Source",
+      "Experiência técnica em eletromecânica, AutoCAD e Inventor somada à formação em desenvolvimento para criar soluções completas.",
+    tags: ["AutoCAD", "Inventor", "C++", "IA"],
+    year: "2024",
+    status: "Formação",
     accent: "from-fuchsia-300 to-rose-400",
   },
 ];
 
 const SKILLS = [
-  { category: "Linguagens", items: ["Python", "SQL", "TypeScript", "Scala", "Bash"] },
-  { category: "Dados & Cloud", items: ["Apache Spark", "Kafka", "dbt", "Airflow", "AWS", "GCP", "Azure"] },
-  { category: "Engenharia", items: ["Docker", "Kubernetes", "Terraform", "CI/CD", "Git"] },
-  { category: "Web & APIs", items: ["FastAPI", "React", "Node.js", "REST", "GraphQL"] },
+  { category: "Web", items: ["HTML", "CSS", "JavaScript", "React", "Node.js", "PHP"] },
+  { category: "Dados & Backend", items: ["MySQL", "Supabase", "APIs", "Banco de dados", "Lógica de programação"] },
+  { category: "Design & IA", items: ["Figma", "Canva", "Lovable", "Codex", "IA", "Filmora"] },
+  { category: "Técnico", items: ["C++", "AutoCAD", "Inventor", "Word", "PowerPoint", "Eletromecânica"] },
 ];
 
 const TIMELINE = [
   {
-    year: "2024",
-    role: "Engenheiro de Dados Sênior",
-    company: "TechCorp Brasil",
+    year: "jun/2025 - atual",
+    role: "Office-boy",
+    company: "Escritório de Serviços Contábeis Ipiranga",
     description:
-      "Liderança técnica do time de dados. Arquitetura de lake house na AWS com Delta Lake, reduzindo 40% do custo de processamento.",
+      "Rotinas administrativas, organização de documentos, apoio operacional e contato com processos internos de escritório.",
   },
   {
-    year: "2022",
-    role: "Engenheiro de Dados Pleno",
-    company: "Fintech Solutions",
+    year: "mar/2025 - jun/2025",
+    role: "Estagiário",
+    company: "EMEIF General Lima Figueiredo",
     description:
-      "Desenvolvimento de pipelines de ingestão para dados financeiros em tempo real e implementação de qualidade de dados com Great Expectations.",
+      "Apoio em atividades administrativas e operacionais, com foco em organização, atendimento e aprendizado profissional.",
   },
   {
-    year: "2021",
-    role: "Analista de Dados",
-    company: "Varejo Digital S.A.",
+    year: "fev/2024 - dez/2024",
+    role: "Jovem Aprendiz",
+    company: "Metalnew Madeira e Aço, Birigui",
     description:
-      "Criação de dashboards executivos no Power BI, modelagem dimensional e automação de relatórios com Python.",
+      "Vivência em ambiente produtivo e administrativo, desenvolvendo responsabilidade, comunicação e disciplina operacional.",
   },
   {
-    year: "2020",
-    role: "Desenvolvedor Python Jr.",
-    company: "Agência WebTech",
+    year: "abr/2022 - jan/2023",
+    role: "Recepcionista",
+    company: "Academia Corporal, Bilac",
     description:
-      "Desenvolvimento de scripts de automação e APIs REST para integração entre sistemas de e-commerce e ERPs.",
+      "Atendimento ao público, organização de agenda, comunicação com clientes e suporte às rotinas da academia.",
   },
   {
-    year: "2018",
-    role: "Técnico em TI",
-    company: "Prefeitura de Araçatuba",
+    year: "nov/2019 - fev/2020",
+    role: "Assistente de Estoque e Notas Fiscais",
+    company: "FarmaJusta, Bilac",
     description:
-      "Suporte técnico e desenvolvimento de sistemas internos em Python para automação de processos administrativos.",
+      "Apoio em estoque, notas fiscais, conferência de informações e organização de processos internos.",
+  },
+];
+
+const EDUCATION = [
+  {
+    title: "Tecnologia em Desenvolvimento de Sistemas",
+    place: "UniSalesiano",
+    detail: "Cursando, início em 2025",
+  },
+  {
+    title: "Técnico em Eletromecânica",
+    place: "SENAI",
+    detail: "Conclusão em 2024",
+  },
+  {
+    title: "Ensino Médio",
+    place: "SESI Samir Nakad",
+    detail: "Conclusão em 2024",
   },
 ];
 
 const STATS = [
-  { label: "Anos de experiência", value: "6+", icon: BriefcaseBusiness },
-  { label: "Certificados", value: "12", icon: Award },
-  { label: "Projetos entregues", value: "30+", icon: Code2 },
-  { label: "Tecnologias", value: "25+", icon: Sparkles },
+  { label: "Anos de experiência", value: "2", icon: BriefcaseBusiness },
+  { label: "Certificados", value: "2", icon: Award },
+  { label: "Formações", value: "3", icon: GraduationCap },
+  { label: "Tecnologias", value: "20+", icon: Sparkles },
 ];
 
-const PIPELINES = [
-  { label: "Kafka", value: 82 },
-  { label: "Spark", value: 94 },
-  { label: "dbt", value: 68 },
-  { label: "Airflow", value: 76 },
-  { label: "MLflow", value: 61 },
+const TECH_RADAR = [
+  { label: "React", value: 82 },
+  { label: "Node.js", value: 70 },
+  { label: "MySQL", value: 68 },
+  { label: "Figma", value: 78 },
+  { label: "Supabase", value: 64 },
 ];
 
 function getSectionId(item: string) {
@@ -195,6 +214,15 @@ export default function App() {
             ))}
           </div>
 
+          <a
+            href={CURRICULUM_URL}
+            download
+            className="hidden min-h-10 items-center gap-2 rounded-md border border-primary/40 px-4 font-mono text-xs text-primary transition hover:bg-primary hover:text-primary-foreground lg:inline-flex"
+          >
+            <Download size={15} />
+            Currículo
+          </a>
+
           <button
             aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
             className="grid h-10 w-10 place-items-center rounded-md border border-white/10 text-muted-foreground transition hover:border-primary/50 hover:text-primary md:hidden"
@@ -218,6 +246,13 @@ export default function App() {
                 {item}
               </button>
             ))}
+            <a
+              href={CURRICULUM_URL}
+              download
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground"
+            >
+              Baixar currículo <Download size={16} />
+            </a>
           </div>
         </motion.div>
       </nav>
@@ -230,7 +265,7 @@ export default function App() {
           <div className="relative mx-auto grid min-h-[calc(100vh-4rem)] max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.78fr)] lg:px-8">
             <motion.div initial={{ opacity: 0, y: 34 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
               <p className="mb-5 font-mono text-xs uppercase tracking-[0.34em] text-primary">
-                Engenheiro de Dados & Desenvolvedor
+                Desenvolvimento de Sistemas | Eletromecânica | Tecnologia
               </p>
               <h1 className="max-w-4xl text-[clamp(3.3rem,10vw,8.5rem)] font-semibold leading-[0.86] tracking-normal text-white">
                 Thiago
@@ -238,16 +273,17 @@ export default function App() {
                 Cassiano
               </h1>
               <p className="mt-8 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
-                Transformo dados brutos em produtos confiáveis: pipelines escaláveis, arquiteturas cloud-native,
-                automações e interfaces que ajudam equipes a decidir com velocidade.
+                Profissional em formação na área de tecnologia, com base técnica em eletromecânica e experiência em
+                rotinas administrativas, atendimento e organização operacional.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <button
-                  onClick={() => handleNav("Projetos")}
+                <a
+                  href={CURRICULUM_URL}
+                  download
                   className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-primary px-6 text-sm font-semibold text-primary-foreground transition hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(49,242,161,0.2)]"
                 >
-                  Ver projetos <ArrowUpRight size={16} />
-                </button>
+                  Baixar currículo <Download size={16} />
+                </a>
                 <button
                   onClick={() => handleNav("Contato")}
                   className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-white/14 px-6 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-accent hover:text-accent"
@@ -271,16 +307,16 @@ export default function App() {
                     <span className="h-2.5 w-2.5 rounded-full bg-primary" />
                   </div>
                   <span className="font-mono text-[0.68rem] uppercase tracking-[0.24em] text-muted-foreground">
-                    live pipeline
+                    dev stack
                   </span>
                 </div>
 
                 <div className="grid gap-4">
                   <div className="grid grid-cols-3 gap-3">
                     {[
-                      { icon: Database, label: "raw", tone: "text-primary" },
-                      { icon: Server, label: "lake", tone: "text-accent" },
-                      { icon: Cloud, label: "cloud", tone: "text-[#ffd166]" },
+                      { icon: Code2, label: "web", tone: "text-primary" },
+                      { icon: Database, label: "dados", tone: "text-accent" },
+                      { icon: Figma, label: "design", tone: "text-[#ffd166]" },
                     ].map(({ icon: Icon, label, tone }) => (
                       <div key={label} className="rounded-md border border-white/10 bg-white/[0.03] p-3">
                         <Icon className={tone} size={18} />
@@ -292,13 +328,13 @@ export default function App() {
                   </div>
 
                   <div className="rounded-md border border-white/10 bg-background/70 p-4">
-                    <div className="mb-4 flex items-center justify-between">
-                      <span className="font-mono text-xs text-white">throughput diário</span>
-                      <span className="font-mono text-xs text-primary">2.1M eventos</span>
+                    <div className="mb-4 flex items-center justify-between gap-4">
+                      <span className="font-mono text-xs text-white">tecnologias em foco</span>
+                      <span className="font-mono text-xs text-primary">20+ skills</span>
                     </div>
                     <div className="space-y-3">
-                      {PIPELINES.map((item, index) => (
-                        <div key={item.label} className="grid grid-cols-[4.5rem_1fr] items-center gap-3">
+                      {TECH_RADAR.map((item, index) => (
+                        <div key={item.label} className="grid grid-cols-[4.8rem_1fr] items-center gap-3">
                           <span className="font-mono text-xs text-muted-foreground">{item.label}</span>
                           <div className="h-2 overflow-hidden rounded-full bg-white/8">
                             <motion.div
@@ -332,7 +368,7 @@ export default function App() {
           </button>
         </section>
 
-        <AnimatedSection id="sobre" eyebrow="01 / Sobre Mim" title="Código limpo, dados precisos.">
+        <AnimatedSection id="sobre" eyebrow="01 / Sobre Mim" title="Tecnologia, prática e evolução.">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {STATS.map(({ label, value, icon: Icon }, index) => (
@@ -351,19 +387,19 @@ export default function App() {
 
             <div className="space-y-5 text-base leading-8 text-muted-foreground">
               <p className="text-foreground/90">
-                Sou Thiago Panini Cassiano, engenheiro de dados e desenvolvedor com mais de 6 anos de experiência
-                construindo soluções que escalam. Nasci em Araçatuba/SP e hoje atuo remotamente com times distribuídos.
+                Busco uma oportunidade desafiadora onde eu possa utilizar meus conhecimentos para gerar valor, expandir
+                minhas qualificações e alinhar meu desenvolvimento profissional com o sucesso da organização.
               </p>
               <p>
-                Minha trajetória começou na TI de suporte, passou pelo desenvolvimento web e hoje se concentra na
-                intersecção entre engenharia de dados, machine learning e arquitetura cloud.
+                Tenho interesse constante por tecnologia, desenvolvimento de sistemas e soluções digitais. Minha base
+                une formação técnica, vivência administrativa, atendimento e organização operacional.
               </p>
               <div className="grid gap-3 pt-4 sm:grid-cols-2">
                 {[
-                  ["Localização", "Araçatuba, SP"],
-                  ["Disponibilidade", "Projetos remotos"],
-                  ["Foco atual", "Data Engineering"],
-                  ["Idiomas", "Português e Inglês"],
+                  ["Localização", "Bilac, SP"],
+                  ["Disponibilidade", "Oportunidades e projetos"],
+                  ["Foco atual", "Desenvolvimento de Sistemas"],
+                  ["Diferenciais", "Base técnica e aprendizado rápido"],
                 ].map(([label, value]) => (
                   <div key={label} className="rounded-md border border-white/10 bg-white/[0.03] p-4">
                     <p className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-muted-foreground">{label}</p>
@@ -375,7 +411,7 @@ export default function App() {
           </div>
         </AnimatedSection>
 
-        <AnimatedSection id="projetos" eyebrow="02 / Projetos" title="Trabalhos selecionados.">
+        <AnimatedSection id="projetos" eyebrow="02 / Projetos" title="Focos de atuação.">
           <div className="grid gap-5 md:grid-cols-2">
             {PROJECTS.map((project, index) => (
               <motion.article
@@ -432,13 +468,12 @@ export default function App() {
           </div>
 
           <div className="mt-6 grid gap-4 rounded-lg border border-white/10 bg-secondary/55 p-5 md:grid-cols-3 md:p-7">
-            {["AWS Certified", "Google Cloud", "Databricks & dbt"].map((title, index) => (
-              <div key={title} className="rounded-md bg-background/45 p-4">
-                <Award className="mb-4 text-[#ffd166]" size={18} />
-                <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">{title}</p>
-                <p className="mt-3 text-sm leading-6 text-foreground/80">
-                  Certificações e prática aplicada em ambientes de produção, pipelines e arquitetura de dados.
-                </p>
+            {EDUCATION.map((item) => (
+              <div key={item.title} className="rounded-md bg-background/45 p-4">
+                <GraduationCap className="mb-4 text-[#ffd166]" size={18} />
+                <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">{item.place}</p>
+                <p className="mt-3 text-sm font-semibold leading-6 text-white">{item.title}</p>
+                <p className="mt-2 text-sm leading-6 text-foreground/70">{item.detail}</p>
               </div>
             ))}
           </div>
@@ -477,14 +512,14 @@ export default function App() {
           <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
               <p className="max-w-xl text-base leading-8 text-muted-foreground">
-                Estou disponível para projetos freelance, oportunidades de emprego e colaborações. Entre em contato e
-                respondo em até 24h.
+                Estou aberto a oportunidades, estágios, projetos e conexões na área de tecnologia. Entre em contato ou
+                baixe meu currículo para conhecer minha trajetória completa.
               </p>
               <div className="mt-8 grid gap-3">
                 <ContactLink href="tel:+5518996614644" icon={Phone} label="Telefone / WhatsApp" value="(18) 99661-4644" />
-                <ContactLink href="mailto:thiago.panini@email.com" icon={Mail} label="E-mail" value="thiago.panini@email.com" />
-                <ContactLink href="https://linkedin.com/in/thiago-panini" icon={Linkedin} label="LinkedIn" value="linkedin.com/in/thiago-panini" />
-                <ContactLink href="https://github.com/ThiagoPanini" icon={Github} label="GitHub" value="github.com/ThiagoPanini" />
+                <ContactLink href="mailto:thiagopanini2007@gmail.com" icon={Mail} label="E-mail" value="thiagopanini2007@gmail.com" />
+                <ContactLink href="https://github.com/cassdev-TPC" icon={Github} label="GitHub" value="github.com/cassdev-TPC" />
+                <ContactLink href={CURRICULUM_URL} icon={Download} label="Currículo" value="Baixar PDF" download />
               </div>
             </div>
 
@@ -492,10 +527,10 @@ export default function App() {
               <p className="font-mono text-xs uppercase tracking-[0.24em] text-primary">Disponível para</p>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 {[
-                  "Projetos de Engenharia de Dados",
-                  "Consultoria em Arquitetura Cloud",
-                  "Desenvolvimento de Pipelines",
-                  "Mentoria e Treinamentos",
+                  "Estágio em desenvolvimento",
+                  "Projetos web e landing pages",
+                  "Apoio administrativo com tecnologia",
+                  "Criação de interfaces e protótipos",
                 ].map((item) => (
                   <div key={item} className="rounded-md border border-white/10 bg-background/45 p-4 text-sm leading-6 text-foreground/85">
                     {item}
@@ -503,10 +538,11 @@ export default function App() {
                 ))}
               </div>
               <a
-                href="mailto:thiago.panini@email.com"
+                href={CURRICULUM_URL}
+                download
                 className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground transition hover:-translate-y-0.5"
               >
-                Enviar mensagem <ArrowUpRight size={16} />
+                Baixar currículo <Download size={16} />
               </a>
             </div>
           </div>
@@ -516,7 +552,7 @@ export default function App() {
       <footer className="border-t border-white/10 py-8">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 text-center font-mono text-xs text-muted-foreground sm:px-6 md:flex-row lg:px-8">
           <span>© 2026 Thiago Panini Cassiano</span>
-          <span>Araçatuba, SP / Brasil</span>
+          <span>Bilac, SP / Brasil</span>
         </div>
       </footer>
     </div>
@@ -560,11 +596,13 @@ function ContactLink({
   icon: Icon,
   label,
   value,
+  download = false,
 }: {
   href: string;
   icon: typeof Phone;
   label: string;
   value: string;
+  download?: boolean;
 }) {
   const external = href.startsWith("http");
 
@@ -573,6 +611,7 @@ function ContactLink({
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
+      download={download || undefined}
       className="group flex min-w-0 items-center gap-4 rounded-lg border border-white/10 bg-card p-4 transition hover:-translate-y-0.5 hover:border-primary/45"
     >
       <span className="grid h-11 w-11 shrink-0 place-items-center rounded-md bg-white/7 text-primary transition group-hover:bg-primary group-hover:text-primary-foreground">
