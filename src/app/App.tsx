@@ -70,7 +70,14 @@ const SKILLS = [
 
 const TIMELINE = [
   {
-    year: "jun/2025 - atual",
+    year: "jun/2026 - atual",
+    role: "Assistente Técnico de Sistemas e Automações",
+    company: "CHEBIB CONTROL",
+    description:
+      "Atuação com suporte técnico, sistemas e automações, apoiando a melhoria de processos e o uso de soluções digitais no ambiente operacional.",
+  },
+  {
+    year: "jun/2025 - jun/2026",
     role: "Office-boy",
     company: "Escritório de Serviços Contábeis Ipiranga",
     description:
