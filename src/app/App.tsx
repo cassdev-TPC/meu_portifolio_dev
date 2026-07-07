@@ -19,45 +19,35 @@ import {
 import { motion, useScroll, useSpring } from "motion/react";
 
 const CURRICULUM_URL = "/Curriculo_Thiago_Panini_Cassiano_visual_novo.pdf";
+const WHATSAPP_URL =
+  "https://wa.me/5518996614644?text=Ol%C3%A1%2C%20Thiago!%20Tenho%20uma%20ideia%20e%20gostaria%20de%20criar%20uma%20solu%C3%A7%C3%A3o%20digital.";
 
-const NAV_ITEMS = ["Sobre", "Projetos", "Habilidades", "Trajetória", "Contato"];
+const NAV_ITEMS = ["Sobre", "Serviços", "Habilidades", "Trajetória", "Contato"];
 
-const PROJECTS = [
+const SERVICES = [
   {
-    name: "Portfólio Dev",
+    name: "Portfólios para venda e divulgação pessoal",
     description:
-      "Site pessoal responsivo para apresentar trajetória, tecnologias, contatos e currículo, com React, Tailwind CSS, Motion e deploy via Vercel.",
-    tags: ["React", "Tailwind", "Vite", "Vercel"],
-    year: "2026",
-    status: "Online",
+      "Criação de portfólios modernos para apresentar sua trajetória, serviços, contatos, currículo, trabalhos e diferenciais de forma profissional.",
+    tags: ["Portfólio", "Divulgação", "Currículo", "Identidade"],
+    status: "Pessoal",
     accent: "from-emerald-400 to-cyan-300",
   },
   {
-    name: "Soluções Digitais",
+    name: "Sites para venda de serviços",
     description:
-      "Estudos e práticas em desenvolvimento de sistemas, criação de interfaces e organização de fluxos digitais para problemas do dia a dia.",
-    tags: ["JavaScript", "Node.js", "Supabase", "MySQL"],
-    year: "2025",
-    status: "Em evolução",
+      "Desenvolvimento de sites para profissionais e negócios divulgarem serviços, receberem contatos e transformarem visitantes em clientes.",
+    tags: ["Landing page", "WhatsApp", "Serviços", "Conversão"],
+    status: "Negócios",
     accent: "from-sky-400 to-violet-300",
   },
   {
-    name: "Design & Prototipação",
+    name: "Sistemas de divulgação de produtos e empresas",
     description:
-      "Criação de telas, identidade visual e materiais digitais com foco em clareza, usabilidade e apresentação profissional.",
-    tags: ["Figma", "Canva", "Lovable", "UI"],
-    year: "2025",
-    status: "Estudos",
+      "Criação de sistemas e páginas para organizar produtos, apresentar empresas, exibir informações importantes e facilitar o contato comercial.",
+    tags: ["Catálogo", "Empresa", "Produtos", "Sistema"],
+    status: "Empresas",
     accent: "from-amber-300 to-orange-400",
-  },
-  {
-    name: "Base Técnica",
-    description:
-      "Experiência técnica em eletromecânica, AutoCAD e Inventor somada à formação em desenvolvimento para criar soluções completas.",
-    tags: ["AutoCAD", "Inventor", "C++", "IA"],
-    year: "2024",
-    status: "Formação",
-    accent: "from-fuchsia-300 to-rose-400",
   },
 ];
 
@@ -418,30 +408,30 @@ export default function App() {
           </div>
         </AnimatedSection>
 
-        <AnimatedSection id="projetos" eyebrow="02 / Projetos" title="Focos de atuação.">
-          <div className="grid gap-5 md:grid-cols-2">
-            {PROJECTS.map((project, index) => (
+        <AnimatedSection id="servicos" eyebrow="02 / Serviços" title="Como posso ajudar.">
+          <div className="grid gap-5 lg:grid-cols-3">
+            {SERVICES.map((service, index) => (
               <motion.article
-                key={project.name}
+                key={service.name}
                 variants={sectionReveal}
                 transition={{ duration: 0.5, delay: index * 0.08 }}
                 whileHover={{ y: -8 }}
                 className="group relative overflow-hidden rounded-lg border border-white/10 bg-card p-5 sm:p-7"
               >
-                <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${project.accent}`} />
+                <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${service.accent}`} />
                 <div className="mb-7 flex items-start justify-between gap-4">
                   <div className="flex min-w-0 items-center gap-3">
                     <span className="font-mono text-xs text-muted-foreground">{String(index + 1).padStart(2, "0")}</span>
                     <span className="rounded border border-white/12 px-2 py-1 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-primary">
-                      {project.status}
+                      {service.status}
                     </span>
                   </div>
-                  <span className="font-mono text-xs text-muted-foreground">{project.year}</span>
+                  <Code2 className="text-muted-foreground transition group-hover:text-primary" size={18} />
                 </div>
-                <h3 className="text-2xl font-semibold text-white transition group-hover:text-primary">{project.name}</h3>
-                <p className="mt-4 text-sm leading-7 text-muted-foreground">{project.description}</p>
+                <h3 className="text-2xl font-semibold text-white transition group-hover:text-primary">{service.name}</h3>
+                <p className="mt-4 text-sm leading-7 text-muted-foreground">{service.description}</p>
                 <div className="mt-7 flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
+                  {service.tags.map((tag) => (
                     <span key={tag} className="rounded-md bg-white/7 px-3 py-1.5 font-mono text-xs text-foreground/80">
                       {tag}
                     </span>
@@ -450,6 +440,31 @@ export default function App() {
               </motion.article>
             ))}
           </div>
+
+          <motion.div
+            variants={sectionReveal}
+            transition={{ duration: 0.55, delay: 0.18 }}
+            className="mt-5 overflow-hidden rounded-lg border border-primary/30 bg-secondary/70 p-5 sm:p-7 lg:p-8"
+          >
+            <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+              <div>
+                <p className="font-mono text-xs uppercase tracking-[0.24em] text-primary">Solução personalizada</p>
+                <h3 className="mt-4 text-2xl font-semibold text-white sm:text-3xl">Sua ideia não está aqui?</h3>
+                <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground sm:text-base">
+                  Conte para nós o que você precisa. Desenvolvemos soluções personalizadas para transformar sua ideia em
+                  um sistema funcional, moderno e feito sob medida para o seu negócio.
+                </p>
+              </div>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-primary px-6 text-sm font-semibold text-primary-foreground transition hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(49,242,161,0.2)]"
+              >
+                Chamar no WhatsApp <MessageCircle size={16} />
+              </a>
+            </div>
+          </motion.div>
         </AnimatedSection>
 
         <AnimatedSection id="habilidades" eyebrow="03 / Competências" title="Stack & habilidades.">
