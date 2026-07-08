@@ -77,8 +77,8 @@ const EDUCATION = [
 ];
 
 const STATS = [
-  { label: "Anos de prática", value: "2", icon: BriefcaseBusiness },
-  { label: "Tipos de serviço", value: "3", icon: Code2 },
+  { label: "Anos de prática", value: "2+", icon: BriefcaseBusiness },
+  { label: "Tipos de serviço", value: "∞", icon: Code2 },
   { label: "Tecnologias", value: "20+", icon: Sparkles },
 ];
 
@@ -226,8 +226,8 @@ export default function App() {
                 Cassiano
               </h1>
               <p className="mt-8 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
-                Criação de sites, portfólios profissionais e sistemas de divulgação para transformar serviços, produtos
-                e ideias em uma presença digital moderna, funcional e pronta para gerar contatos.
+                Soluções digitais modernas para transformar ideias, serviços e produtos em presença online, autoridade e
+                oportunidades reais de negócio.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <button
@@ -346,9 +346,9 @@ export default function App() {
                 experiência com ferramentas de edição, design e inteligência artificial.
               </p>
               <p>
-                Atualmente curso Tecnologia em Desenvolvimento de Sistemas e busco evoluir cada vez mais na área de
-                programação, criando projetos funcionais, modernos e bem estruturados. Tenho facilidade para aprender
-                novas tecnologias, resolver problemas e transformar ideias em soluções práticas.
+                Atualmente curso Tecnologia em Análise e Desenvolvimento de Sistemas e busco evoluir cada vez mais na
+                área de programação, criando projetos funcionais, modernos e bem estruturados. Tenho facilidade para
+                aprender novas tecnologias, resolver problemas e transformar ideias em soluções práticas.
               </p>
               <p>
                 Meu objetivo é crescer profissionalmente como programador, contribuindo com projetos que gerem valor,
