@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import {
+  ArrowUpRight,
   Award,
   BriefcaseBusiness,
   ChevronDown,
@@ -20,16 +21,16 @@ import { motion, useScroll, useSpring } from "motion/react";
 
 const CURRICULUM_URL = "/Curriculo_Thiago_Panini_Cassiano_visual_novo.pdf";
 const WHATSAPP_URL =
-  "https://wa.me/5518996614644?text=Ol%C3%A1%2C%20Thiago!%20Tenho%20uma%20ideia%20e%20gostaria%20de%20criar%20uma%20solu%C3%A7%C3%A3o%20digital.";
+  "https://wa.me/5518996614644?text=Ol%C3%A1%2C%20Thiago!%20Quero%20conversar%20sobre%20um%20site%20ou%20sistema%20para%20divulgar%20meus%20servi%C3%A7os.";
 
 const NAV_ITEMS = ["Sobre", "Serviços", "Habilidades", "Trajetória", "Contato"];
 
 const SERVICES = [
   {
-    name: "Portfólios para venda e divulgação pessoal",
+    name: "Portfólio profissional para vendas e divulgação pessoal",
     description:
-      "Criação de portfólios modernos para apresentar sua trajetória, serviços, contatos, currículo, trabalhos e diferenciais de forma profissional.",
-    tags: ["Portfólio", "Divulgação", "Currículo", "Identidade"],
+      "Criação de páginas profissionais para apresentar sua imagem, serviços, contatos, diferenciais e materiais de divulgação com visual moderno.",
+    tags: ["Portfólio", "Divulgação", "Vendas", "Identidade"],
     status: "Pessoal",
     accent: "from-emerald-400 to-cyan-300",
   },
@@ -122,9 +123,9 @@ const EDUCATION = [
 ];
 
 const STATS = [
-  { label: "Anos de experiência", value: "2", icon: BriefcaseBusiness },
+  { label: "Anos de prática", value: "2", icon: BriefcaseBusiness },
   { label: "Certificados", value: "2", icon: Award },
-  { label: "Formações", value: "3", icon: GraduationCap },
+  { label: "Tipos de serviço", value: "3", icon: Code2 },
   { label: "Tecnologias", value: "20+", icon: Sparkles },
 ];
 
@@ -212,12 +213,13 @@ export default function App() {
           </div>
 
           <a
-            href={CURRICULUM_URL}
-            download
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden min-h-10 items-center gap-2 rounded-md border border-primary/40 px-4 font-mono text-xs text-primary transition hover:bg-primary hover:text-primary-foreground lg:inline-flex"
           >
-            <Download size={15} />
-            Currículo
+            <MessageCircle size={15} />
+            WhatsApp
           </a>
 
           <button
@@ -244,11 +246,12 @@ export default function App() {
               </button>
             ))}
             <a
-              href={CURRICULUM_URL}
-              download
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-primary px-4 text-sm font-semibold text-primary-foreground"
             >
-              Baixar currículo <Download size={16} />
+              Chamar no WhatsApp <MessageCircle size={16} />
             </a>
           </div>
         </motion.div>
@@ -262,7 +265,7 @@ export default function App() {
           <div className="relative mx-auto grid min-h-[calc(100vh-4rem)] max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.78fr)] lg:px-8">
             <motion.div initial={{ opacity: 0, y: 34 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
               <p className="mb-5 font-mono text-xs uppercase tracking-[0.34em] text-primary">
-                Desenvolvimento de Sistemas | Eletromecânica | Tecnologia
+                Sites, sistemas e divulgação digital
               </p>
               <h1 className="max-w-4xl text-[clamp(3.3rem,10vw,8.5rem)] font-semibold leading-[0.86] tracking-normal text-white">
                 Thiago
@@ -270,23 +273,24 @@ export default function App() {
                 Cassiano
               </h1>
               <p className="mt-8 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
-                Profissional em formação na área de tecnologia, com base técnica em eletromecânica e experiência em
-                rotinas administrativas, atendimento e organização operacional.
+                Criação de sites, portfólios profissionais e sistemas de divulgação para transformar serviços, produtos
+                e ideias em uma presença digital moderna, funcional e pronta para gerar contatos.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <a
-                  href={CURRICULUM_URL}
-                  download
+                <button
+                  onClick={() => handleNav("Serviços")}
                   className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-primary px-6 text-sm font-semibold text-primary-foreground transition hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(49,242,161,0.2)]"
                 >
-                  Baixar currículo <Download size={16} />
-                </a>
-                <button
-                  onClick={() => handleNav("Contato")}
+                  Ver serviços <ArrowUpRight size={16} />
+                </button>
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-white/14 px-6 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-accent hover:text-accent"
                 >
-                  Chamar no contato <MessageCircle size={16} />
-                </button>
+                  Pedir orçamento <MessageCircle size={16} />
+                </a>
               </div>
             </motion.div>
 
@@ -304,7 +308,7 @@ export default function App() {
                     <span className="h-2.5 w-2.5 rounded-full bg-primary" />
                   </div>
                   <span className="font-mono text-[0.68rem] uppercase tracking-[0.24em] text-muted-foreground">
-                    dev stack
+                    serviços digitais
                   </span>
                 </div>
 
@@ -326,8 +330,8 @@ export default function App() {
 
                   <div className="rounded-md border border-white/10 bg-background/70 p-4">
                     <div className="mb-4 flex items-center justify-between gap-4">
-                      <span className="font-mono text-xs text-white">tecnologias em foco</span>
-                      <span className="font-mono text-xs text-primary">20+ skills</span>
+                      <span className="font-mono text-xs text-white">produção digital</span>
+                      <span className="font-mono text-xs text-primary">do briefing ao deploy</span>
                     </div>
                     <div className="space-y-3">
                       {TECH_RADAR.map((item, index) => (
@@ -365,7 +369,7 @@ export default function App() {
           </button>
         </section>
 
-        <AnimatedSection id="sobre" eyebrow="01 / Sobre Mim" title="Tecnologia, prática e evolução.">
+        <AnimatedSection id="sobre" eyebrow="01 / Atendimento" title="Soluções digitais com foco em divulgação.">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {STATS.map(({ label, value, icon: Icon }, index) => (
@@ -384,19 +388,19 @@ export default function App() {
 
             <div className="space-y-5 text-base leading-8 text-muted-foreground">
               <p className="text-foreground/90">
-                Busco uma oportunidade desafiadora onde eu possa utilizar meus conhecimentos para gerar valor, expandir
-                minhas qualificações e alinhar meu desenvolvimento profissional com o sucesso da organização.
+                Desenvolvo páginas e sistemas para quem precisa divulgar serviços, produtos, empresas ou sua própria
+                imagem profissional com clareza, velocidade e visual moderno.
               </p>
               <p>
-                Tenho interesse constante por tecnologia, desenvolvimento de sistemas e soluções digitais. Minha base
-                une formação técnica, vivência administrativa, atendimento e organização operacional.
+                A proposta é simples: entender sua necessidade, organizar as informações importantes e transformar a
+                ideia em uma solução funcional, responsiva e pronta para ser compartilhada com clientes.
               </p>
               <div className="grid gap-3 pt-4 sm:grid-cols-2">
                 {[
                   ["Localização", "Bilac, SP"],
-                  ["Disponibilidade", "Oportunidades e projetos"],
-                  ["Foco atual", "Desenvolvimento de Sistemas"],
-                  ["Diferenciais", "Base técnica e aprendizado rápido"],
+                  ["Atendimento", "Serviços personalizados"],
+                  ["Foco atual", "Sites e sistemas de divulgação"],
+                  ["Diferenciais", "Design, tecnologia e organização"],
                 ].map(([label, value]) => (
                   <div key={label} className="rounded-md border border-white/10 bg-white/[0.03] p-4">
                     <p className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-muted-foreground">{label}</p>
@@ -530,12 +534,12 @@ export default function App() {
           </div>
         </AnimatedSection>
 
-        <AnimatedSection id="contato" eyebrow="05 / Contato" title="Vamos conversar?">
+        <AnimatedSection id="contato" eyebrow="05 / Contato" title="Vamos tirar sua ideia do papel?">
           <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
               <p className="max-w-xl text-base leading-8 text-muted-foreground">
-                Estou aberto a oportunidades, estágios, projetos e conexões na área de tecnologia. Entre em contato ou
-                baixe meu currículo para conhecer minha trajetória completa.
+                Me envie uma mensagem contando o que você precisa divulgar ou vender. A partir disso, podemos pensar no
+                melhor formato: portfólio profissional, site de serviços, catálogo digital ou sistema personalizado.
               </p>
               <div className="mt-8 grid gap-3">
                 <ContactLink href="tel:+5518996614644" icon={Phone} label="Telefone / WhatsApp" value="(18) 99661-4644" />
@@ -546,13 +550,13 @@ export default function App() {
             </div>
 
             <div className="rounded-lg border border-white/10 bg-card p-5 sm:p-7">
-              <p className="font-mono text-xs uppercase tracking-[0.24em] text-primary">Disponível para</p>
+              <p className="font-mono text-xs uppercase tracking-[0.24em] text-primary">Serviços disponíveis</p>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 {[
-                  "Estágio em desenvolvimento",
-                  "Projetos web e landing pages",
-                  "Apoio administrativo com tecnologia",
-                  "Criação de interfaces e protótipos",
+                  "Portfólios profissionais",
+                  "Sites para venda de serviços",
+                  "Sistemas de divulgação",
+                  "Soluções sob medida",
                 ].map((item) => (
                   <div key={item} className="rounded-md border border-white/10 bg-background/45 p-4 text-sm leading-6 text-foreground/85">
                     {item}
@@ -560,11 +564,12 @@ export default function App() {
                 ))}
               </div>
               <a
-                href={CURRICULUM_URL}
-                download
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground transition hover:-translate-y-0.5"
               >
-                Baixar currículo <Download size={16} />
+                Chamar no WhatsApp <MessageCircle size={16} />
               </a>
             </div>
           </div>
