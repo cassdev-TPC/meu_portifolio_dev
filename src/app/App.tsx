@@ -1,7 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import {
   ArrowUpRight,
-  Award,
   BriefcaseBusiness,
   ChevronDown,
   Code2,
@@ -23,7 +22,7 @@ const CURRICULUM_URL = "/Curriculo_Thiago_Panini_Cassiano_visual_novo.pdf";
 const WHATSAPP_URL =
   "https://wa.me/5518996614644?text=Ol%C3%A1%2C%20Thiago!%20Quero%20conversar%20sobre%20um%20site%20ou%20sistema%20para%20divulgar%20meus%20servi%C3%A7os.";
 
-const NAV_ITEMS = ["Sobre", "Serviços", "Habilidades", "Trajetória", "Contato"];
+const NAV_ITEMS = ["Sobre", "Serviços", "Habilidades", "Contato"];
 
 const SERVICES = [
   {
@@ -59,51 +58,6 @@ const SKILLS = [
   { category: "Técnico", items: ["C++", "AutoCAD", "Inventor", "Word", "PowerPoint", "Eletromecânica"] },
 ];
 
-const TIMELINE = [
-  {
-    year: "jun/2026 - atual",
-    role: "Assistente Técnico de Sistemas e Automações",
-    company: "CHEBIB CONTROL",
-    description:
-      "Atuação com suporte técnico, sistemas e automações, apoiando a melhoria de processos e o uso de soluções digitais no ambiente operacional.",
-  },
-  {
-    year: "jun/2025 - jun/2026",
-    role: "Office-boy",
-    company: "Escritório de Serviços Contábeis Ipiranga",
-    description:
-      "Rotinas administrativas, organização de documentos, apoio operacional e contato com processos internos de escritório.",
-  },
-  {
-    year: "mar/2025 - jun/2025",
-    role: "Estagiário",
-    company: "EMEIF General Lima Figueiredo",
-    description:
-      "Apoio em atividades administrativas e operacionais, com foco em organização, atendimento e aprendizado profissional.",
-  },
-  {
-    year: "fev/2024 - dez/2024",
-    role: "Jovem Aprendiz",
-    company: "Metalnew Madeira e Aço, Birigui",
-    description:
-      "Vivência em ambiente produtivo e administrativo, desenvolvendo responsabilidade, comunicação e disciplina operacional.",
-  },
-  {
-    year: "abr/2022 - jan/2023",
-    role: "Recepcionista",
-    company: "Academia Corporal, Bilac",
-    description:
-      "Atendimento ao público, organização de agenda, comunicação com clientes e suporte às rotinas da academia.",
-  },
-  {
-    year: "nov/2019 - fev/2020",
-    role: "Assistente de Estoque e Notas Fiscais",
-    company: "FarmaJusta, Bilac",
-    description:
-      "Apoio em estoque, notas fiscais, conferência de informações e organização de processos internos.",
-  },
-];
-
 const EDUCATION = [
   {
     title: "Tecnologia em Desenvolvimento de Sistemas",
@@ -124,7 +78,6 @@ const EDUCATION = [
 
 const STATS = [
   { label: "Anos de prática", value: "2", icon: BriefcaseBusiness },
-  { label: "Certificados", value: "2", icon: Award },
   { label: "Tipos de serviço", value: "3", icon: Code2 },
   { label: "Tecnologias", value: "20+", icon: Sparkles },
 ];
@@ -369,7 +322,7 @@ export default function App() {
           </button>
         </section>
 
-        <AnimatedSection id="sobre" eyebrow="01 / Atendimento" title="Soluções digitais com foco em divulgação.">
+        <AnimatedSection id="sobre" eyebrow="01 / Sobre Mim" title="Desenvolvedor em formação.">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {STATS.map(({ label, value, icon: Icon }, index) => (
@@ -388,12 +341,18 @@ export default function App() {
 
             <div className="space-y-5 text-base leading-8 text-muted-foreground">
               <p className="text-foreground/90">
-                Desenvolvo páginas e sistemas para quem precisa divulgar serviços, produtos, empresas ou sua própria
-                imagem profissional com clareza, velocidade e visual moderno.
+                Sou um desenvolvedor em formação, apaixonado por tecnologia, criação de soluções digitais e aprendizado
+                constante. Tenho conhecimentos em HTML, CSS, JavaScript, PHP, C++ e desenvolvimento de sistemas, além de
+                experiência com ferramentas de edição, design e inteligência artificial.
               </p>
               <p>
-                A proposta é simples: entender sua necessidade, organizar as informações importantes e transformar a
-                ideia em uma solução funcional, responsiva e pronta para ser compartilhada com clientes.
+                Atualmente curso Tecnologia em Desenvolvimento de Sistemas e busco evoluir cada vez mais na área de
+                programação, criando projetos funcionais, modernos e bem estruturados. Tenho facilidade para aprender
+                novas tecnologias, resolver problemas e transformar ideias em soluções práticas.
+              </p>
+              <p>
+                Meu objetivo é crescer profissionalmente como programador, contribuindo com projetos que gerem valor,
+                unindo criatividade, organização e dedicação em cada entrega.
               </p>
               <div className="grid gap-3 pt-4 sm:grid-cols-2">
                 {[
@@ -502,35 +461,6 @@ export default function App() {
                 <p className="mt-2 text-sm leading-6 text-foreground/70">{item.detail}</p>
               </div>
             ))}
-          </div>
-        </AnimatedSection>
-
-        <AnimatedSection id="trajetoria" eyebrow="04 / Trajetória" title="Linha do tempo.">
-          <div className="relative">
-            <div className="absolute bottom-0 left-3 top-0 w-px bg-white/10 md:left-1/2" />
-            <div className="space-y-8">
-              {TIMELINE.map((item, index) => (
-                <motion.div
-                  key={`${item.year}-${item.company}`}
-                  variants={sectionReveal}
-                  transition={{ duration: 0.5, delay: index * 0.05 }}
-                  className={`relative grid gap-4 pl-10 md:grid-cols-2 md:pl-0 ${
-                    index % 2 === 0 ? "" : "md:[&>article]:col-start-2"
-                  }`}
-                >
-                  <span className="absolute left-1.5 top-3 h-3.5 w-3.5 rounded-full border-2 border-background bg-primary md:left-1/2 md:-translate-x-1/2" />
-                  <article className={`rounded-lg border border-white/10 bg-card p-5 ${index % 2 === 0 ? "md:mr-10" : "md:ml-10"}`}>
-                    <div className="mb-3 flex flex-wrap items-center gap-3">
-                      <span className="font-mono text-xs font-semibold text-primary">{item.year}</span>
-                      <span className="text-white/20">/</span>
-                      <span className="text-xs text-muted-foreground">{item.company}</span>
-                    </div>
-                    <h3 className="text-lg font-semibold text-white">{item.role}</h3>
-                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.description}</p>
-                  </article>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </AnimatedSection>
 
