@@ -8,7 +8,7 @@ import {
   Download,
   Figma,
   Github,
-  GraduationCap,
+  Linkedin,
   Mail,
   Menu,
   MessageCircle,
@@ -58,21 +58,18 @@ const SKILLS = [
   { category: "Técnico", items: ["C++", "AutoCAD", "Inventor", "Word", "PowerPoint", "Eletromecânica"] },
 ];
 
-const EDUCATION = [
+const WORKFLOW = [
   {
-    title: "Tecnologia em Desenvolvimento de Sistemas",
-    place: "UniSalesiano",
-    detail: "Cursando, início em 2025",
+    title: "Briefing claro",
+    description: "Entendo sua ideia, público, objetivo e quais informações precisam aparecer para gerar confiança.",
   },
   {
-    title: "Técnico em Eletromecânica",
-    place: "SENAI",
-    detail: "Conclusão em 2024",
+    title: "Design funcional",
+    description: "Organizo a experiência visual para deixar seu serviço, produto ou empresa fácil de entender.",
   },
   {
-    title: "Ensino Médio",
-    place: "SESI Samir Nakad",
-    detail: "Conclusão em 2024",
+    title: "Entrega responsiva",
+    description: "Desenvolvo uma solução moderna, adaptada para celular e pronta para compartilhar com clientes.",
   },
 ];
 
@@ -452,15 +449,26 @@ export default function App() {
             ))}
           </div>
 
-          <div className="mt-6 grid gap-4 rounded-lg border border-white/10 bg-secondary/55 p-5 md:grid-cols-3 md:p-7">
-            {EDUCATION.map((item) => (
-              <div key={item.title} className="rounded-md bg-background/45 p-4">
-                <GraduationCap className="mb-4 text-[#ffd166]" size={18} />
-                <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">{item.place}</p>
-                <p className="mt-3 text-sm font-semibold leading-6 text-white">{item.title}</p>
-                <p className="mt-2 text-sm leading-6 text-foreground/70">{item.detail}</p>
+          <div className="mt-6 rounded-lg border border-white/10 bg-secondary/55 p-5 md:p-7">
+            <div className="grid gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+              <div>
+                <p className="font-mono text-xs uppercase tracking-[0.24em] text-primary">Processo de criação</p>
+                <h3 className="mt-4 text-2xl font-semibold leading-tight text-white">Do primeiro contato ao site no ar.</h3>
+                <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                  Cada serviço é pensado para comunicar melhor sua ideia e facilitar o contato com clientes, usando uma
+                  estrutura objetiva, visual moderno e foco em divulgação.
+                </p>
               </div>
-            ))}
+              <div className="grid gap-3 sm:grid-cols-3">
+                {WORKFLOW.map((item, index) => (
+                  <div key={item.title} className="rounded-md bg-background/45 p-4">
+                    <span className="font-mono text-xs text-primary">{String(index + 1).padStart(2, "0")}</span>
+                    <p className="mt-4 text-sm font-semibold leading-6 text-white">{item.title}</p>
+                    <p className="mt-2 text-sm leading-6 text-foreground/70">{item.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </AnimatedSection>
 
@@ -474,6 +482,12 @@ export default function App() {
               <div className="mt-8 grid gap-3">
                 <ContactLink href="tel:+5518996614644" icon={Phone} label="Telefone / WhatsApp" value="(18) 99661-4644" />
                 <ContactLink href="mailto:thiagopanini2007@gmail.com" icon={Mail} label="E-mail" value="thiagopanini2007@gmail.com" />
+                <ContactLink
+                  href="https://www.linkedin.com/in/thiago-cassiano-01a322356?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                  icon={Linkedin}
+                  label="LinkedIn"
+                  value="linkedin.com/in/thiago-cassiano"
+                />
                 <ContactLink href="https://github.com/cassdev-TPC" icon={Github} label="GitHub" value="github.com/cassdev-TPC" />
                 <ContactLink href={CURRICULUM_URL} icon={Download} label="Currículo" value="Baixar PDF" download />
               </div>
