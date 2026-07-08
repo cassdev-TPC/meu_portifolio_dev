@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import {
   ArrowUpRight,
   BriefcaseBusiness,
+  CheckCircle2,
   ChevronDown,
   Code2,
   Database,
@@ -13,7 +14,10 @@ import {
   Menu,
   MessageCircle,
   Phone,
+  Rocket,
+  ShieldCheck,
   Sparkles,
+  Zap,
   X,
 } from "lucide-react";
 import { motion, useScroll, useSpring } from "motion/react";
@@ -87,6 +91,24 @@ const TECH_RADAR = [
   { label: "Supabase", value: 64 },
 ];
 
+const TRUST_BADGES = [
+  { label: "Layout responsivo", icon: CheckCircle2 },
+  { label: "Visual moderno", icon: Sparkles },
+  { label: "Contato via WhatsApp", icon: MessageCircle },
+  { label: "Entrega objetiva", icon: Rocket },
+];
+
+const MARQUEE_ITEMS = [
+  "Sites responsivos",
+  "Landing pages",
+  "Portfólios profissionais",
+  "Catálogos digitais",
+  "Sistemas de divulgação",
+  "Integração com WhatsApp",
+  "Design moderno",
+  "Deploy online",
+];
+
 function getSectionId(item: string) {
   return item
     .normalize("NFD")
@@ -138,6 +160,15 @@ export default function App() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-background text-foreground selection:bg-primary/30">
       <motion.div className="fixed left-0 right-0 top-0 z-[60] h-1 origin-left bg-primary" style={{ scaleX }} />
+      <a
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chamar no WhatsApp"
+        className="floating-whatsapp fixed bottom-5 right-5 z-50 hidden h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-[0_18px_45px_rgba(49,242,161,0.24)] transition hover:-translate-y-1 sm:inline-flex"
+      >
+        <MessageCircle size={22} />
+      </a>
 
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-background/78 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -242,6 +273,20 @@ export default function App() {
                   Pedir orçamento <MessageCircle size={16} />
                 </a>
               </div>
+              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                {TRUST_BADGES.map(({ label, icon: Icon }, index) => (
+                  <motion.div
+                    key={label}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.45, delay: 0.25 + index * 0.08 }}
+                    className="glass-chip inline-flex min-h-11 items-center gap-3 rounded-md border border-white/10 bg-white/[0.035] px-4 text-sm text-foreground/85"
+                  >
+                    <Icon className="text-primary" size={16} />
+                    {label}
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
 
             <motion.div
@@ -276,6 +321,21 @@ export default function App() {
                         </p>
                       </div>
                     ))}
+                  </div>
+
+                  <div className="rounded-md border border-primary/20 bg-primary/[0.06] p-4">
+                    <div className="flex items-start gap-3">
+                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-primary text-primary-foreground">
+                        <Zap size={17} />
+                      </span>
+                      <div>
+                        <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">presença online</p>
+                        <p className="mt-2 text-sm leading-6 text-foreground/80">
+                          Estrutura pensada para mostrar valor rápido, facilitar contato e deixar seu serviço com cara
+                          profissional.
+                        </p>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="rounded-md border border-white/10 bg-background/70 p-4">
@@ -318,6 +378,20 @@ export default function App() {
             <ChevronDown className="animate-bounce" size={22} />
           </button>
         </section>
+
+        <div className="border-y border-white/10 bg-secondary/35 py-4">
+          <div className="modern-marquee flex overflow-hidden">
+            {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, index) => (
+              <span
+                key={`${item}-${index}`}
+                className="mx-5 inline-flex shrink-0 items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground"
+              >
+                <ShieldCheck className="text-primary" size={14} />
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
 
         <AnimatedSection id="sobre" eyebrow="01 / Sobre Mim" title="Desenvolvedor em formação.">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
@@ -376,7 +450,7 @@ export default function App() {
                 variants={sectionReveal}
                 transition={{ duration: 0.5, delay: index * 0.08 }}
                 whileHover={{ y: -8 }}
-                className="group relative overflow-hidden rounded-lg border border-white/10 bg-card p-5 sm:p-7"
+                className="modern-service-card group relative overflow-hidden rounded-lg border border-white/10 bg-card p-5 sm:p-7"
               >
                 <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${service.accent}`} />
                 <div className="mb-7 flex items-start justify-between gap-4">
