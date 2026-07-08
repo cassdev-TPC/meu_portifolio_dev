@@ -26,7 +26,12 @@ const CURRICULUM_URL = "/Curriculo_Thiago_Panini_Cassiano_visual_novo.pdf";
 const WHATSAPP_URL =
   "https://wa.me/5518996614644?text=Ol%C3%A1%2C%20Thiago!%20Quero%20conversar%20sobre%20um%20site%20ou%20sistema%20para%20divulgar%20meus%20servi%C3%A7os.";
 
-const NAV_ITEMS = ["Sobre", "Serviços", "Habilidades", "Contato"];
+const NAV_ITEMS = [
+  { label: "Sobre", id: "sobre" },
+  { label: "Serviços", id: "servicos" },
+  { label: "Habilidades", id: "habilidades" },
+  { label: "Contato", id: "contato" },
+] as const;
 
 const SERVICES = [
   {
@@ -109,30 +114,19 @@ const MARQUEE_ITEMS = [
   "Deploy online",
 ];
 
-function getSectionId(item: string) {
-  return item
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
-}
-
-function scrollToSection(item: string) {
-  document.getElementById(getSectionId(item))?.scrollIntoView({ behavior: "smooth" });
-}
-
 const sectionReveal = {
   hidden: { opacity: 0, y: 36 },
   visible: { opacity: 1, y: 0 },
 };
 
 export default function App() {
-  const [activeNav, setActiveNav] = useState("Sobre");
+  const [activeNav, setActiveNav] = useState("sobre");
   const [menuOpen, setMenuOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 24, restDelta: 0.001 });
 
   useEffect(() => {
-    const sections = NAV_ITEMS.map((item) => document.getElementById(getSectionId(item))).filter(Boolean);
+    const sections = NAV_ITEMS.map((item) => document.getElementById(item.id)).filter(Boolean);
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -140,8 +134,8 @@ export default function App() {
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
         if (visible?.target.id) {
-          const next = NAV_ITEMS.find((item) => getSectionId(item) === visible.target.id);
-          if (next) setActiveNav(next);
+          const next = NAV_ITEMS.find((item) => item.id === visible.target.id);
+          if (next) setActiveNav(next.id);
         }
       },
       { rootMargin: "-20% 0px -55% 0px", threshold: [0.2, 0.5, 0.8] },
@@ -151,10 +145,18 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
-  function handleNav(item: string) {
-    setActiveNav(item);
+  function handleNav(id: string) {
+    setActiveNav(id);
     setMenuOpen(false);
-    scrollToSection(item);
+
+    window.setTimeout(() => {
+      const target = document.getElementById(id);
+      if (!target) return;
+
+      const navOffset = 72;
+      const top = target.getBoundingClientRect().top + window.scrollY - navOffset;
+      window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" });
+    }, 80);
   }
 
   return (
@@ -182,13 +184,13 @@ export default function App() {
           <div className="hidden items-center gap-1 md:flex">
             {NAV_ITEMS.map((item) => (
               <button
-                key={item}
-                onClick={() => handleNav(item)}
+                key={item.id}
+                onClick={() => handleNav(item.id)}
                 className={`rounded-md px-3 py-2 font-mono text-xs transition ${
-                  activeNav === item ? "bg-white/10 text-white" : "text-muted-foreground hover:bg-white/5 hover:text-white"
+                  activeNav === item.id ? "bg-white/10 text-white" : "text-muted-foreground hover:bg-white/5 hover:text-white"
                 }`}
               >
-                {item}
+                {item.label}
               </button>
             ))}
           </div>
@@ -219,11 +221,11 @@ export default function App() {
           <div className="grid gap-2 px-4 py-4">
             {NAV_ITEMS.map((item) => (
               <button
-                key={item}
-                onClick={() => handleNav(item)}
+                key={item.id}
+                onClick={() => handleNav(item.id)}
                 className="rounded-md border border-white/10 px-4 py-3 text-left font-mono text-xs text-muted-foreground transition hover:border-primary/40 hover:text-primary"
               >
-                {item}
+                {item.label}
               </button>
             ))}
             <a
@@ -259,7 +261,7 @@ export default function App() {
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <button
-                  onClick={() => handleNav("Serviços")}
+                  onClick={() => handleNav("servicos")}
                   className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-primary px-6 text-sm font-semibold text-primary-foreground transition hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(49,242,161,0.2)]"
                 >
                   Ver serviços <ArrowUpRight size={16} />
@@ -372,7 +374,7 @@ export default function App() {
 
           <button
             aria-label="Ir para sobre"
-            onClick={() => handleNav("Sobre")}
+            onClick={() => handleNav("sobre")}
             className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-muted-foreground transition hover:text-primary sm:block"
           >
             <ChevronDown className="animate-bounce" size={22} />
