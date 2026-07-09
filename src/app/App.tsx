@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type PointerEvent, type ReactNode } from "react";
 import {
   ArrowUpRight,
   BriefcaseBusiness,
@@ -126,6 +126,7 @@ export default function App() {
   const [showIntro, setShowIntro] = useState(true);
   const [activeNav, setActiveNav] = useState("sobre");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [cursorActive, setCursorActive] = useState(false);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 24, restDelta: 0.001 });
 
@@ -179,9 +180,26 @@ export default function App() {
     }, 80);
   }
 
+  function handlePointerMove(event: PointerEvent<HTMLDivElement>) {
+    if (event.pointerType !== "mouse") return;
+
+    document.documentElement.style.setProperty("--cursor-x", `${event.clientX}px`);
+    document.documentElement.style.setProperty("--cursor-y", `${event.clientY}px`);
+    setCursorActive(true);
+  }
+
   return (
-    <div className="min-h-screen overflow-x-hidden bg-background text-foreground selection:bg-primary/30">
+    <div
+      className={`site-shell min-h-screen overflow-x-hidden bg-background text-foreground selection:bg-primary/30 ${
+        cursorActive ? "cursor-ready" : ""
+      }`}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={() => setCursorActive(false)}
+    >
       <AnimatePresence>{showIntro && <IntroOverlay />}</AnimatePresence>
+      <div className="interactive-background" aria-hidden="true" />
+      <div className="custom-cursor-dot" aria-hidden="true" />
+      <div className="custom-cursor-ring" aria-hidden="true" />
       <motion.div className="fixed left-0 right-0 top-0 z-[60] h-1 origin-left bg-primary" style={{ scaleX }} />
       <a
         href={WHATSAPP_URL}
