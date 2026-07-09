@@ -20,9 +20,10 @@ import {
   Zap,
   X,
 } from "lucide-react";
-import { motion, useScroll, useSpring } from "motion/react";
+import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 
 const CURRICULUM_URL = "/Curriculo_Thiago_Panini_Cassiano_visual_novo.pdf";
+const PROFILE_IMAGE_URL = "/thiago-profile.png";
 const WHATSAPP_URL =
   "https://wa.me/5518996614644?text=Ol%C3%A1%2C%20Thiago!%20Quero%20conversar%20sobre%20um%20site%20ou%20sistema%20para%20divulgar%20meus%20servi%C3%A7os.";
 
@@ -114,16 +115,35 @@ const MARQUEE_ITEMS = [
   "Deploy online",
 ];
 
+const INTRO_STEPS = ["briefing", "design", "sistema", "online"];
+
 const sectionReveal = {
   hidden: { opacity: 0, y: 36 },
   visible: { opacity: 1, y: 0 },
 };
 
 export default function App() {
+  const [showIntro, setShowIntro] = useState(true);
   const [activeNav, setActiveNav] = useState("sobre");
   const [menuOpen, setMenuOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 24, restDelta: 0.001 });
+
+  useEffect(() => {
+    const introTimer = window.setTimeout(() => setShowIntro(false), 3200);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      window.clearTimeout(introTimer);
+      document.body.style.overflow = "";
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!showIntro) {
+      document.body.style.overflow = "";
+    }
+  }, [showIntro]);
 
   useEffect(() => {
     const sections = NAV_ITEMS.map((item) => document.getElementById(item.id)).filter(Boolean);
@@ -161,6 +181,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-background text-foreground selection:bg-primary/30">
+      <AnimatePresence>{showIntro && <IntroOverlay />}</AnimatePresence>
       <motion.div className="fixed left-0 right-0 top-0 z-[60] h-1 origin-left bg-primary" style={{ scaleX }} />
       <a
         href={WHATSAPP_URL}
@@ -603,6 +624,100 @@ export default function App() {
         </div>
       </footer>
     </div>
+  );
+}
+
+function IntroOverlay() {
+  return (
+    <motion.div
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.7, ease: "easeInOut" } }}
+      className="intro-overlay fixed inset-0 z-[100] grid place-items-center overflow-hidden bg-background px-5"
+    >
+      <div className="data-grid absolute inset-0 opacity-80" />
+      <div className="intro-scan absolute inset-x-0 top-0 h-px" />
+      <motion.div
+        initial={{ opacity: 0, y: 28, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="relative z-10 w-full max-w-4xl"
+      >
+        <div className="intro-panel overflow-hidden rounded-lg border border-white/12 bg-card/75 p-5 shadow-2xl shadow-black/40 backdrop-blur-xl sm:p-7">
+          <div className="grid gap-6 md:grid-cols-[auto_1fr] md:items-center">
+            <motion.div
+              initial={{ opacity: 0, rotate: -4, scale: 0.88 }}
+              animate={{ opacity: 1, rotate: 0, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.7, ease: "easeOut" }}
+              className="intro-photo-wrap mx-auto md:mx-0"
+            >
+              <img
+                src={PROFILE_IMAGE_URL}
+                alt="Thiago Panini Cassiano"
+                className="h-28 w-28 rounded-lg object-cover grayscale-[15%] sm:h-36 sm:w-36"
+              />
+            </motion.div>
+
+            <div className="min-w-0 text-center md:text-left">
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35, duration: 0.45 }}
+                className="font-mono text-xs uppercase tracking-[0.3em] text-primary"
+              >
+                soluções digitais
+              </motion.p>
+              <motion.h2
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.48, duration: 0.55 }}
+                className="mt-4 text-[clamp(2.3rem,8vw,5.2rem)] font-semibold leading-[0.9] text-white"
+              >
+                Thiago
+                <span className="block font-serif italic text-primary">Panini</span>
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.75, duration: 0.55 }}
+                className="mt-5 max-w-xl text-sm leading-7 text-muted-foreground sm:text-base"
+              >
+                Transformando ideias, serviços e produtos em presença online moderna.
+              </motion.p>
+            </div>
+          </div>
+
+          <div className="mt-7 grid gap-3 sm:grid-cols-4">
+            {INTRO_STEPS.map((step, index) => (
+              <motion.div
+                key={step}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.85 + index * 0.12, duration: 0.4 }}
+                className="rounded-md border border-white/10 bg-background/45 p-3"
+              >
+                <span className="font-mono text-[0.65rem] text-primary">{String(index + 1).padStart(2, "0")}</span>
+                <p className="mt-2 font-mono text-xs uppercase tracking-[0.18em] text-foreground/80">{step}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mt-7">
+            <div className="mb-3 flex items-center justify-between font-mono text-[0.68rem] uppercase tracking-[0.2em] text-muted-foreground">
+              <span>preparando experiência</span>
+              <span>100%</span>
+            </div>
+            <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
+              <motion.div
+                initial={{ width: "0%" }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 2.35, ease: "easeInOut" }}
+                className="h-full rounded-full bg-gradient-to-r from-primary via-accent to-[#ffd166]"
+              />
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
 

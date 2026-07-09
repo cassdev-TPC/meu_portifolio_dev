@@ -215,6 +215,76 @@
     z-index: 1;
   }
 
+  .intro-overlay {
+    isolation: isolate;
+  }
+
+  .intro-overlay::before,
+  .intro-overlay::after {
+    position: absolute;
+    content: "";
+    border-radius: 999px;
+    filter: blur(58px);
+    opacity: 0.28;
+    pointer-events: none;
+  }
+
+  .intro-overlay::before {
+    top: 12%;
+    left: 12%;
+    width: 18rem;
+    height: 18rem;
+    background: rgba(49, 242, 161, 0.48);
+    animation: introFloat 5s ease-in-out infinite;
+  }
+
+  .intro-overlay::after {
+    right: 8%;
+    bottom: 10%;
+    width: 20rem;
+    height: 20rem;
+    background: rgba(91, 216, 255, 0.36);
+    animation: introFloat 5.8s ease-in-out infinite reverse;
+  }
+
+  .intro-panel {
+    position: relative;
+  }
+
+  .intro-panel::before {
+    position: absolute;
+    inset: 0;
+    content: "";
+    pointer-events: none;
+    background:
+      linear-gradient(120deg, rgba(255, 255, 255, 0.09), transparent 24%),
+      radial-gradient(circle at 80% 10%, rgba(49, 242, 161, 0.16), transparent 28%);
+  }
+
+  .intro-photo-wrap {
+    position: relative;
+    width: max-content;
+    border-radius: 0.75rem;
+    padding: 0.45rem;
+    background: linear-gradient(135deg, rgba(49, 242, 161, 0.8), rgba(91, 216, 255, 0.35), rgba(255, 209, 102, 0.52));
+    box-shadow: 0 18px 55px rgba(49, 242, 161, 0.16);
+  }
+
+  .intro-photo-wrap::after {
+    position: absolute;
+    inset: -0.55rem;
+    content: "";
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 1rem;
+    transform: rotate(-4deg);
+  }
+
+  .intro-scan {
+    z-index: 1;
+    background: linear-gradient(90deg, transparent, rgba(49, 242, 161, 0.95), rgba(91, 216, 255, 0.65), transparent);
+    animation: introScan 2.6s ease-in-out infinite;
+  }
+
   .glass-chip {
     position: relative;
     overflow: hidden;
@@ -337,6 +407,31 @@
   100% {
     opacity: 0;
     transform: scale(1.35);
+  }
+}
+
+@keyframes introFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(1.2rem, -0.8rem, 0) scale(1.08);
+  }
+}
+
+@keyframes introScan {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  15%,
+  65% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
   }
 }
 
