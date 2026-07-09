@@ -192,7 +192,8 @@ export default function App() {
     <div
       className={`site-shell min-h-screen overflow-x-hidden bg-background text-foreground selection:bg-primary/30 ${
         cursorActive ? "cursor-ready" : ""
-      }`}
+      } notranslate`}
+      translate="no"
       onPointerMove={handlePointerMove}
       onPointerLeave={() => setCursorActive(false)}
     >
