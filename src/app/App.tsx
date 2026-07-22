@@ -25,7 +25,7 @@ import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 const CURRICULUM_URL = "/Curriculo_Thiago_Panini_Cassiano_visual_novo.pdf";
 const PROFILE_IMAGE_URL = "/thiago-profile.png";
 const WHATSAPP_URL =
-  "https://wa.me/5518996614644?text=Ol%C3%A1%2C%20Thiago!%20Quero%20conversar%20sobre%20um%20site%20ou%20sistema%20para%20divulgar%20meus%20servi%C3%A7os.";
+  "https://wa.me/5518996980211?text=Ol%C3%A1%2C%20Thiago!%20Quero%20conversar%20sobre%20um%20site%20ou%20sistema%20para%20divulgar%20meus%20servi%C3%A7os.";
 
 const NAV_ITEMS = [
   { label: "Sobre", id: "sobre" },
@@ -596,7 +596,7 @@ export default function App() {
                 melhor formato: portfólio profissional, site de serviços, catálogo digital ou sistema personalizado.
               </p>
               <div className="mt-8 grid gap-3">
-                <ContactLink href="tel:+5518996614644" icon={Phone} label="Telefone / WhatsApp" value="(18) 99661-4644" />
+                <ContactLink href="tel:+5518996980211" icon={Phone} label="Telefone / WhatsApp" value="(18) 99698-0211" />
                 <ContactLink href="mailto:thiagopanini2007@gmail.com" icon={Mail} label="E-mail" value="thiagopanini2007@gmail.com" />
                 <ContactLink
                   href="https://www.linkedin.com/in/thiago-cassiano-01a322356?utm_source=share_via&utm_content=profile&utm_medium=member_android"
